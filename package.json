@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Chillcapped/BDO-Boss-Timers/issues"
   },
-  "homepage": "https://github.com/Chillcapped/BDO-Boss-Timers#readme"
+  "homepage": "https://github.com/Chillcapped/BDO-Boss-Timers#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
