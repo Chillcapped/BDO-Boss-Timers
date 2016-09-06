@@ -18,7 +18,7 @@ Code included in this repo allows you to run a private instance of this applicat
 - Discord API Token
 
 ## Config
-Configuration Settings need to be set in .env.json file. See /misc/example.env.json 
+Configuration Settings need to be set in .env.json file. See /misc/example.env.json
 
 
 ## Licensing
