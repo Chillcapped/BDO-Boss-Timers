@@ -1,0 +1,135 @@
+
+<dom-module id="tracker-grid">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+      <style include="app-grid-style">
+
+        :host {
+          --app-grid-columns: 4;
+          --app-grid-item-height: 200px;
+        }
+        paper-tooltip{
+          margin-top: -105px;
+          height: 94px;
+          width: 140px;
+          z-index: 0;
+        }
+        ul {
+          padding: 0;
+          list-style: none;
+        }
+        li{
+          cursor:pointer;
+        }
+        li:hover{
+            opacity: 1 !important;
+        }
+        .item {
+          padding: 10px;
+        }
+
+        @media (max-width: 640px) {
+          :host {
+            --app-grid-columns: 1;
+          }
+        }
+        li paper-material{
+          height:100%;
+          width:100%;
+        }
+        li paper-material label{
+          color: white;
+          text-align: center;
+          float: left;
+          width: 100%;
+          padding: 10px;
+          background: #642323;
+          box-sizing: border-box;
+          margin-top: -42px;
+          position: relative;
+          font-size: 1.2em;
+          font-family: roboto;
+        }
+        li paper-material iron-image{
+          height:100%;
+          width:100%;
+        }
+        .notActive{
+          -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+          filter: grayscale(100%);
+        }
+        .activeLabel{
+          background: #23642f !important;
+        }
+        .inactive{
+              opacity: 0.5;
+        }
+      </style>
+      <div>
+
+      <ul class="app-grid">
+        <template is="dom-repeat" items="[[timers]]" index-as="index">
+          <template is="dom-if" if="{{inWindow(index)}}">
+            <li class="item">
+              <paper-material id="[[item.short]]" elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
+                <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]"></iron-image>
+                <label class="activeLabel">[[item.boss]]</label>
+              </paper-material>
+              <paper-tooltip for="[[item.short]]" animation-delay="0">
+                <font>Timer:</font>
+                <span>[[item.timer]]</span>
+              </paper-tooltip>
+            </li>
+          </template>
+      </template>
+      <template is="dom-repeat" items="[[timers]]" index-as="index">
+        <template is="dom-if" if="{{!inWindow(index)}}">
+          <li class="item inactive">
+            <paper-material id="[[item.short]]" elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
+              <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]" class="notActive"></iron-image>
+              <label>[[item.boss]]</label>
+            </paper-material>
+            <paper-tooltip for="[[item.short]]" animation-delay="0">
+              <font>Timer:</font>
+              <span>[[item.timer]]</span>
+            </paper-tooltip>
+          </li>
+        </template>
+    </template>
+      </ul>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: "tracker-grid",
+      properties: {
+        timers: {
+          type: Array,
+          notify: true,
+          value: [
+            {'boss': 'Dastard Bheg', 'short': 'bheg', 'image': '/static/images/wbt_bheg.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true},
+            {'boss': 'Dim Tree Spirit', 'short': 'dim', 'image': '/static/images/wbt_dim.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true},
+            {'boss': 'Mudster', 'short': 'mud', 'image': '/static/images/wbt_mudster.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
+            {'boss': 'Red Nose', 'short': 'rednose', 'image': '/static/images/wbt_red.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
+            {'boss': 'Harpy Queen', 'short': 'harpy', 'image': '/static/images/wbt_harpy.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
+            {'boss': 'Kzarka', 'short': 'kzarka', 'image': '/static/images/wbt_kzarka.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
+            {'boss': 'Nouver', 'short': 'nouver', 'image': '/static/images/wbt_nouver.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false}
+          ]
+        }
+
+      },
+      goToBoss: function(e){
+        var boss = e.target.parentNode.parentNode.attributes.boss.value;
+        page('/boss/'+boss+'/info');
+      },
+      inWindow: function(e){
+        return this.timers[e].inWindow;
+      }
+    })
+  </script>
+</dom-module>

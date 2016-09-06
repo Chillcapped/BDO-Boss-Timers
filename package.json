@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Chillcapped/BDO-Boss-Timers#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "mdi": "^1.7.22",
     "nodemon": "^1.10.2"
   }
 }

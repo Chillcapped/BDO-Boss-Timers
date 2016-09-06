@@ -4,105 +4,121 @@
     :host {
       display: block;
     }
+    .container{
+      height:100%;
+      width:100%;
+    }
+    .homeInfo{
+      position: relative;
+      z-index: 1;
+      width: 90%;
+      margin: auto;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .homeInfo ul{
+      list-style:none;
+    }
+    .homeInfo ul li{
+      padding: 10px;
+      height: 170px;
+      opacity: 1.0;
+      font-weight: 700;
+      font-family: roboto;
+      font-size: 1.03em;
+      color: #b50000;
+    }
+    .homeInfoFeatures{
+
+    }
+    iron-image{
+      position: relative;
+      opacity: 0.6;
+    }
+  </style>
+  <style include="app-grid-style">
+
+    :host {
+      --app-grid-columns: 4;
+      --app-grid-item-height: 200px;
+    }
+    paper-tooltip{
+      margin-top: -105px;
+      height: 94px;
+      width: 140px;
+      z-index: 0;
+    }
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+    li{
+      cursor:pointer;
+    }
+    li:hover{
+        opacity: 1 !important;
+    }
+    .item {
+      padding: 10px;
+    }
+
+    @media (max-width: 640px) {
+      :host {
+        --app-grid-columns: 1;
+      }
+    }
+    li paper-material{
+      background: #282829;
+      border: 1px solid #272626;
+      color: #fbfbfb;
+      font-size: 1em;
+      border-radius: 3px;
+    }
+    li paper-material font{
+      float: left;
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  padding-top: 7px;
+    }
+    .homeFeatures{
+      display: table;
+    height: 59px;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    }
+    .homeFeature iron-image{
+      position: relative;
+    }
   </style>
   <template>
-      <style include="app-grid-style">
-
-        :host {
-          --app-grid-columns: 4;
-          --app-grid-item-height: 200px;
-        }
-        paper-tooltip{
-          margin-top: -105px;
-          height: 94px;
-          width: 140px;
-          z-index: 0;
-        }
-        ul {
-          padding: 0;
-          list-style: none;
-        }
-        li{
-          cursor:pointer;
-        }
-        li:hover{
-            opacity: 1 !important;
-        }
-        .item {
-          padding: 10px;
-        }
-
-        @media (max-width: 640px) {
-          :host {
-            --app-grid-columns: 1;
-          }
-        }
-        li paper-material{
-          height:100%;
-          width:100%;
-        }
-        li paper-material label{
-          color: white;
-          text-align: center;
-          float: left;
-          width: 100%;
-          padding: 10px;
-          background: #642323;
-          box-sizing: border-box;
-          margin-top: -42px;
-          position: relative;
-          font-size: 1.2em;
-          font-family: roboto;
-        }
-        li paper-material iron-image{
-          height:100%;
-          width:100%;
-        }
-        .notActive{
-          -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
-          filter: grayscale(100%);
-        }
-        .activeLabel{
-          background: #23642f !important;
-        }
-        .inactive{
-              opacity: 0.5;
-        }
-      </style>
-      <div>
-
-      <ul class="app-grid">
-        <template is="dom-repeat" items="[[timers]]" index-as="index">
-          <template is="dom-if" if="{{inWindow(index)}}">
-            <li class="item">
-              <paper-material id="[[item.short]]" elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
-                <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]"></iron-image>
-                <label class="activeLabel">[[item.boss]]</label>
-              </paper-material>
-              <paper-tooltip for="[[item.short]]" animation-delay="0">
-                <font>Timer:</font>
-                <span>[[item.timer]]</span>
-              </paper-tooltip>
+    <section class="container">
+      <section class="homeInfo">
+        <div class="homeInfoFeatures">
+          <ul class="app-grid">
+          <template is="dom-repeat" items="[[features]]">
+            <li>
+            <paper-material elevation="1">
+              <div class="homeFeature">
+              <div style="display: table;  overflow: hidden;height: 150px;  width: 100%;">
+                <div style="display: table-cell; vertical-align: middle;">
+                  <div>
+                    <iron-image src$="[[item.icon]]" ></iron-image>
+                    <font>[[item.label]]</font>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </paper-material>
             </li>
           </template>
-      </template>
-      <template is="dom-repeat" items="[[timers]]" index-as="index">
-        <template is="dom-if" if="{{!inWindow(index)}}">
-          <li class="item inactive">
-            <paper-material id="[[item.short]]" elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
-              <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]" class="notActive"></iron-image>
-              <label>[[item.boss]]</label>
-            </paper-material>
-            <paper-tooltip for="[[item.short]]" animation-delay="0">
-              <font>Timer:</font>
-              <span>[[item.timer]]</span>
-            </paper-tooltip>
-          </li>
-        </template>
-    </template>
-      </ul>
-    </div>
-
+        </ul>
+        </div>
+      </section>
+    </section>
   </template>
   <script>
     Polymer({
@@ -111,20 +127,21 @@
         timers: {
           type: Array,
           notify: true,
+          value: []
+        },
+        features: {
+          type: Array,
+          notify: true,
           value: [
-            {'boss': 'Dastard Bheg', 'short': 'bheg', 'image': '/static/images/wbt_bheg.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true},
-            {'boss': 'Dim Tree Spirit', 'short': 'dim', 'image': '/static/images/wbt_dim.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true},
-            {'boss': 'Mudster', 'short': 'mud', 'image': '/static/images/wbt_mudster.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Red Nose', 'short': 'rednose', 'image': '/static/images/wbt_red.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Harpy Queen', 'short': 'harpy', 'image': '/static/images/wbt_harpy.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Kzarka', 'short': 'kzarka', 'image': '/static/images/wbt_kzarka.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Nouver', 'short': 'nouver', 'image': '/static/images/wbt_nouver.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false}
+            {'label': 'Controlled Access', 'icon': '/static/images/shield-outline.png'},
+            {'label': 'Discord Auth', 'icon': '/static/images/discord.png'},
+            {'label': 'Estimated Spawn', 'icon': '/static/images/timer-sand.png'},
+            {'label': 'Guild Access', 'icon': '/static/images/account-card-details.png'},
+            {'label': 'Realtime Alerts', 'icon': '/static/images/cloud-sync.png'},
+            {'label': 'Loot Logging', 'icon': '/static/images/archive.png'},
+            {'label': 'Push Notifications', 'icon': '/static/images/cellphone-iphone.png'}
           ]
         }
-
-      },
-      inWindow: function(e){
-        return this.timers[e].inWindow;
       }
     })
   </script>

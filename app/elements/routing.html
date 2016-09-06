@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<script src="../bower_components/page/page.js"></script>
+<script src="/static/bower_components/page/page.js"></script>
 <script>
   window.addEventListener('WebComponentsReady', function() {
     // We use Page.js for routing. This is a Micro
@@ -47,24 +47,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     page('*', function(ctx, next) {
       next();
     });
-    page(app.baseUrl, function() {
-      var crumb = {
-        title: 'Home',
-        type: 'home',
-        url: '/home'
-      }
-      addCrumb(crumb);
+    page(app.baseUrl, function(data) {
+      data.params.controller = 'browse';
+      app.params = data.params;
       app.route = 'home';
     });
-    page('/', scrollToTop, function() {
-      var params = {title: 'Home'};
-      app.params = params;
-      app.route = 'home';
-    });
+
     page('/boss/:boss/:content', scrollToTop, function(data) {
       data.params.controller = 'boss';
       app.params = data.params;
       app.route = 'boss';
+    });
+    page('/discord', scrollToTop, function(data) {
+      data.params.controller = 'discord';
+      app.params = data.params;
+      app.route = 'launcher';
+    });
+    page('/', scrollToTop, function(data) {
+      data.params.controller = 'browse';
+      app.params = data.params;
+      app.route = 'home';
+    });
+    page('/tracker', scrollToTop, function(data) {
+      data.params.controller = 'tracker';
+      app.params = data.params;
+      app.route = 'launcher';
+    });
+    page('/login', scrollToTop, function(data) {
+      data.params.controller = 'account';
+      app.params = data.params;
+      app.route = 'login';
+    });
+    page('/signup', scrollToTop, function(data) {
+      data.params.controller = 'account';
+      app.params = data.params;
+      app.route = 'signup';
+    });
+    page('/account', scrollToTop, function(data) {
+      data.params.controller = 'account';
+      app.params = data.params;
+      app.route = 'account';
     });
     page('*', function() {
       // app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
