@@ -1,0 +1,48 @@
+<dom-module id="layout-header">
+  <style>
+    :host {
+      display: block;
+    }
+    app-header{
+      background: #202020;
+      color: white;
+      z-index:25;
+    }
+    paper-tabs{
+          width: 80%;
+    }
+    h1 iron-image{
+      margin-top: 10px;
+    }
+  </style>
+
+
+  <template>
+
+      <app-header condenses reveals fixed effects="waterfall">
+        <app-toolbar>
+          <paper-icon-button icon="menu"></paper-icon-button>
+          <h1 main-title><iron-image src="/static/images/logo.png"></iron-image> </h1>
+
+          <!---
+          <paper-tabs selected="0" sticky>
+            <paper-tab>Home</paper-tab>
+            <paper-tab>Features</paper-tab>
+            <paper-tab>Public</paper-tab>
+          </paper-tabs>
+          ---->
+          <server-select></server-select>
+
+        </app-toolbar>
+
+
+      </app-header>
+
+
+  </template>
+  <script>
+  Polymer({
+    is: "layout-header"
+  })
+  </script>
+</dom-module>

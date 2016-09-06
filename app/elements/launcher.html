@@ -1,0 +1,70 @@
+<dom-module id="app-launcher">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <template is="dom-if" if="{{view.boss}}">
+      <home-page></home-page>
+    </template>
+    <template is="dom-if" if="{{view.user}}">
+
+    </template>
+    <template is="dom-if" if="{{view.history}}">
+
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: "app-launcher",
+      properties: {
+        route: {
+          type: String,
+          notify: true
+        },
+        params: {
+          type: Object,
+          notify: true,
+          observer: "paramsChanged"
+        },
+        loading: {
+          type: Boolean,
+          notify: true,
+          value: true,
+          observer: "loaderChanged"
+        },
+        view: {
+          type: Object,
+          notify: true,
+          observer: 'viewChanged'
+        }
+      },
+      paramsChanged: function(e){
+        var view = {};
+        console.log(e);
+        view[e.controller] = true;
+        console.log(view);
+        this.set('controller', e.controller);
+        this.set('view', view);
+        this.set('prod', e.id);
+      },
+      loaderChanged: function(e){
+        console.log(e);
+      },
+      viewChanged: function(e){
+        //console.log(e);
+      },
+      contentUpdated: function(e){
+        //console.log(e);
+      },
+      attachedCallback: function(e){
+
+      },
+      ready: function(){
+
+
+      }
+    });
+  </script>
+</dom-module>

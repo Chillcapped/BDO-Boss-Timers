@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <title>bdo-boss-timers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="/bower_components/iron-component-page/iron-component-page.html">
+  <link rel="import" href="/elements/elements.html" />
+</head>
+<body>
+<style>
+body{
+  background: #202020;
+}
+</style>
+  <template is="dom-bind" id="app">
+    <layout-header></layout-header>
+    <app-launcher route="{{route}}" params="{{params}}" breadcrumbs="{{breadcrumbs}}"></app-launcher>
+    <layout-footer></layout-footer>
+  </template>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
