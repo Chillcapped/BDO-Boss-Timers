@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "mdi": "^1.7.22",
-    "nodemon": "^1.10.2"
+    "nodemon": "^1.10.2",
+    "twitch-api": "^0.4.5"
   }
 }

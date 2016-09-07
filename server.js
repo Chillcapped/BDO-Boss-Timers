@@ -19,7 +19,6 @@ app.get('/:a/:b/:c/:d', function(req, res) {
   res.sendfile(path.join(__dirname, 'app', 'index.html'));
 });
 
-
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('BDO-Timers Available: 127.0.0.1:3000');
 });

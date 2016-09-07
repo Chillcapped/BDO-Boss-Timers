@@ -63,6 +63,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.params = data.params;
       app.route = 'launcher';
     });
+    page('/twitch', scrollToTop, function(data) {
+      data.params.controller = 'twitch';
+      app.params = data.params;
+      app.route = 'launcher';
+    });
     page('/', scrollToTop, function(data) {
       data.params.controller = 'browse';
       app.params = data.params;

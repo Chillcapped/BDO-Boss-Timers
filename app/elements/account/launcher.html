@@ -13,7 +13,8 @@
       properties: {
         route: {
           type: String,
-          notify: true
+          notify: true,
+          route: "routeChanged"
         },
         params: {
           type: Object,
@@ -31,6 +32,9 @@
           notify: true,
           observer: 'viewChanged'
         }
+      },
+      routeChanged: function(e){
+        console.log(e);
       },
       paramsChanged: function(e){
 

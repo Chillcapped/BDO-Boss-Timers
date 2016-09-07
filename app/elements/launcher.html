@@ -8,14 +8,20 @@
     <template is="dom-if" if="{{view.boss}}">
       <boss-launcher params="{{params}}" route="{{route}}"></boss-launcher>
     </template>
-    <template is="dom-if" if="{{view.user}}">
-      <user-launcher params="{{params}}" route="{{route}}"></user-launcher>
+    <template is="dom-if" if="{{view.account}}">
+      <account-launcher params="{{params}}" route="{{route}}"></account-launcher>
     </template>
     <template is="dom-if" if="{{view.browse}}">
       <browse-launcher params="{{params}}" route="{{route}}"></browse-launcher>
     </template>
     <template is="dom-if" if="{{view.tracker}}">
       <tracker-launcher params="{{params}}" route="{{route}}"></tracker-launcher>
+    </template>
+    <template is="dom-if" if="{{view.twitch}}">
+      <twitch-launcher params="{{params}}" route="{{route}}"></twitch-launcher>
+    </template>
+    <template is="dom-if" if="{{view.discord}}">
+      <discord-launcher params="{{params}}" route="{{route}}"></discord-launcher>
     </template>
   </template>
   <script>

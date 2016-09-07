@@ -7,7 +7,6 @@
   </style>
   <template>
       <style include="app-grid-style">
-
         :host {
           --app-grid-columns: 4;
           --app-grid-item-height: 200px;
@@ -68,16 +67,106 @@
         .inactive{
               opacity: 0.5;
         }
+        .windowBar.active{
+          position: absolute;
+          left: 0;
+          background: #228835;
+          height: 43px;
+          top: 142px;
+        }
+        .windowBar.inactive{
+          position: absolute;
+          left: 0;
+          background: #e72222;
+          height: 43px;
+          top: 142px;
+        }
+        .activeLabel font, .inactiveLabel font{
+          position: relative;
+          z-index: 1;
+        }
+        .bossTimer{
+          position: absolute;
+          z-index: 1;
+          right: 6px;
+          top: 155px;
+          color: #e8ffed;
+        }
+        .isUpContainer, .notUpContainer{
+          float: left;
+          width: 100%;
+          clear: both;
+        }
+        .isUpContainer{
+          margin: auto;
+          margin-top: 50px;
+          max-width: 80%;
+          float: none;
+        }
+        .activeItemChannels{
+          float: right;
+          width: 65%;
+          padding: 10px;
+          box-sizing: border-box;
+          background: #333333;
+          height: 203px;
+        }
+        .upLabel{
+              margin-top: 0px !important;
+              background: #004b9d !important;
+        }
+        .activeItemChannels span{
+          float: left;
+          width: 50%;
+          color: white;
+          padding: 5px;
+          font-family: roboto;
+          box-sizing: border-box;
+        }
+        .activeItemChannels span font{
+          float: right;
+          margin-right: 20%;
+        }
+        .upItem iron-image{
+          height: 150px;
+          width: 150px;
+        }
       </style>
-      <div>
 
+      <!--- Boss Up Container --->
+      <div class="isUpContainer">
+        <ul>
+          <template is="dom-repeat" items="[[timers]]" index-as="index">
+            <template is="dom-if" if="{{isUp(index)}}">
+              <li class="item upItem">
+                <paper-material elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
+                  <label class="upLabel"><font>[[item.boss]]</font></label>
+                  <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]" style="height:200px;width:35%;"></iron-image>
+                  <div class="activeItemChannels">
+                    <template is="dom-repeat" items="[[item.channels]]" as="channel" index-as="channelIndex">
+                      <template is="dom-if" if="{{!isChannelDead(channelIndex)}}">
+                        <span>[[channel.name]] <font>[[channel.percent]]%</font></span>
+                      </template>
+                    </template>
+                  </div>
+                </paper-material>
+              </li>
+            </template>
+        </template>
+        </ul>
+      </div>
+
+      <!--- Not Up Container --->
+      <div class="notUpContainer">
       <ul class="app-grid">
         <template is="dom-repeat" items="[[timers]]" index-as="index">
           <template is="dom-if" if="{{inWindow(index)}}">
             <li class="item">
               <paper-material id="[[item.short]]" elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
+                <font class="bossTimer">2h15m</font>
                 <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]"></iron-image>
-                <label class="activeLabel">[[item.boss]]</label>
+                <label class="activeLabel"><font>[[item.boss]]</font></label>
+                <span class="windowBar active" style="width:[[item.timerPercent]]%;"></span>
               </paper-material>
               <paper-tooltip for="[[item.short]]" animation-delay="0">
                 <font>Timer:</font>
@@ -86,12 +175,16 @@
             </li>
           </template>
       </template>
+    </ul>
+    <ul class="app-grid">
       <template is="dom-repeat" items="[[timers]]" index-as="index">
         <template is="dom-if" if="{{!inWindow(index)}}">
           <li class="item inactive">
             <paper-material id="[[item.short]]" elevation="1" on-tap="goToBoss" boss$="[[item.short]]">
+              <font class="bossTimer">2h15m</font>
               <iron-image src="[[item.image]]" sizing="cover" imageItem$="[[index]]" class="notActive"></iron-image>
-              <label>[[item.boss]]</label>
+              <label class="inactiveLabel"><font>[[item.boss]]</font></label>
+              <span class="windowBar inactive" style="width:[[item.timerPercent]]%;"></span>
             </paper-material>
             <paper-tooltip for="[[item.short]]" animation-delay="0">
               <font>Timer:</font>
@@ -112,23 +205,57 @@
           type: Array,
           notify: true,
           value: [
-            {'boss': 'Dastard Bheg', 'short': 'bheg', 'image': '/static/images/wbt_bheg.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true},
-            {'boss': 'Dim Tree Spirit', 'short': 'dim', 'image': '/static/images/wbt_dim.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true},
-            {'boss': 'Mudster', 'short': 'mud', 'image': '/static/images/wbt_mudster.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Red Nose', 'short': 'rednose', 'image': '/static/images/wbt_red.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Harpy Queen', 'short': 'harpy', 'image': '/static/images/wbt_harpy.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Kzarka', 'short': 'kzarka', 'image': '/static/images/wbt_kzarka.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false},
-            {'boss': 'Nouver', 'short': 'nouver', 'image': '/static/images/wbt_nouver.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false}
+            {'boss': 'Dastard Bheg', 'short': 'bheg', 'image': '/static/images/wbt_bheg.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true, 'timerPercent': '50', 'up': true,
+              'channels':  [
+                {'name': 'Velia U1', 'up':'true', 'percent': null},
+                {'name': 'Velia U2', 'up':'true', 'percent': 70},
+                {'name': 'Balenos U1', 'up':'true', 'percent': null},
+                {'name': 'Balenos U2', 'up':'true', 'percent': null},
+                {'name': 'Calpehon U1', 'up':'true', 'percent': 90},
+                {'name': 'Calpehon U2', 'up':'true', 'percent': 90},
+                {'name': 'Serendia U1', 'up':'false', 'percent': 0},
+                {'name': 'Serendia U2', 'up':'false', 'percent': 0},
+                {'name': 'Mediah U1', 'up':'true', 'percent': 20},
+                {'name': 'Mediah U2', 'up':'true', 'percent': 50},
+                {'name': 'Valencia U1', 'up':'true', 'percent': 50},
+                {'name': 'Valencia U2', 'up':'true', 'percent': 50},
+              ]
+            },
+            {'boss': 'Dim Tree Spirit', 'short': 'dim', 'image': '/static/images/wbt_dim.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': true, 'timerPercent': '50', 'up': false,
+              'channels':  [
+                {'name': 'Velia U1', 'up':'true', 'percent': null},
+                {'name': 'Velia U2', 'up':'true', 'percent': 70},
+                {'name': 'Balenos U1', 'up':'true', 'percent': null},
+                {'name': 'Balenos U2', 'up':'true', 'percent': null},
+                {'name': 'Calpehon U2', 'up':'true', 'percent': 90},
+                {'name': 'Serendia U1', 'up':'false', 'percent': 0},
+                {'name': 'Serendia U2', 'up':'false', 'percent': 0},
+                {'name': 'Mediah U1', 'up':'true', 'percent': 20},
+                {'name': 'Mediah U2', 'up':'true', 'percent': 50},
+                {'name': 'Valencia U1', 'up':'true', 'percent': 50},
+                {'name': 'Valencia U2', 'up':'true', 'percent': 50},
+              ]
+            },
+            {'boss': 'Mudster', 'short': 'mud', 'image': '/static/images/wbt_mudster.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false, 'timerPercent': '50', 'up': false},
+            {'boss': 'Red Nose', 'short': 'rednose', 'image': '/static/images/wbt_red.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false, 'timerPercent': '50', 'up': false},
+            {'boss': 'Kharanda', 'short': 'harpy', 'image': '/static/images/wbt_harpy.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false, 'timerPercent': '50', 'up': false},
+            {'boss': 'Kzarka', 'short': 'kzarka', 'image': '/static/images/wbt_kzarka.png', 'timer': '12 hours', 'lastKill': '', 'inWindow': false, 'timerPercent': '50', 'up': false}
           ]
         }
-
       },
       goToBoss: function(e){
         var boss = e.target.parentNode.parentNode.attributes.boss.value;
         page('/boss/'+boss+'/info');
       },
+      isChannelDead: function(e){
+        console.log(e);
+        return false;
+      },
       inWindow: function(e){
         return this.timers[e].inWindow;
+      },
+      isUp: function(e){
+        return this.timers[e].up;
       }
     })
   </script>
