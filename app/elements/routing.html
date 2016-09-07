@@ -60,10 +60,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
     page('/discord', scrollToTop, function(data) {
       data.params.controller = 'discord';
+      data.params.content = 'features';
+      app.params = data.params;
+      app.route = 'launcher';
+    });
+    page('/discord/:content', scrollToTop, function(data) {
+      data.params.controller = 'discord';
       app.params = data.params;
       app.route = 'launcher';
     });
     page('/twitch', scrollToTop, function(data) {
+      data.params.controller = 'twitch';
+      data.params.content = 'features';
+      app.params = data.params;
+      app.route = 'launcher';
+    });
+    page('/twitch/:content', scrollToTop, function(data) {
       data.params.controller = 'twitch';
       app.params = data.params;
       app.route = 'launcher';

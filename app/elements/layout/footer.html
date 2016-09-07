@@ -2,18 +2,55 @@
   <style>
     :host {
       display: block;
+      font-style: roboto;
     }
   </style>
   <template>
+    <style>
+    .footerContainer{
+      color: whitesmoke;
+      float: left;
+      clear: both;
+      width: 100%;
+      border-top: 1px solid #383838;
+    }
+    .footerLinks, .footerSignUp, .footerInfo{
+      float:left;
+      width:33%;
+      box-sizing: border-box;
+    }
+    .footerInfo{
+      float: right !important;
+      font-family: roboto;
+      font-size: 0.9em;
+    }
+    .footerLinks{
+      list-style: none;
+    }
+    .footerLinks ul{
+      list-style:none;
+    }
+    .footerLinks ul li{
+      float: left;
+      width: 90%;
+      padding: 7px;
+      box-sizing: border-box;
+      color: #bdbdbd;
+      font-family: roboto;
+    }
+    </style>
     <section class="footerContainer">
       <section class="footerLinks">
         <ul>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Donate</li>
-          <li>Request Feature</li>
-          <li>Signup For Beta</li>
+          <li on-tap="page('/about');">About</li>
+          <li on-tap="page('/security');">Security Concerns</li>
+          <li on-tap="page('/contact');">Contact</li>
+          <li on-tap="page('/request');">Request Feature</li>
         </ul>
+      </section>
+      <section class="footerInfo">
+        <p>Copyright 2016 Chillcapped Development</p>
+        <p>Application Source Available on <a href="">Github</a></p>
       </section>
     </section>
   </template>

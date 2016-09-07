@@ -11,10 +11,10 @@
     .homeInfo{
       position: relative;
       z-index: 1;
-      width: 90%;
+      width: 100%;
       margin: auto;
       text-align: center;
-      padding: 20px;
+      padding: 0;
       box-sizing: border-box;
     }
     .homeInfo ul{
@@ -75,6 +75,12 @@
       font-size: 1em;
       border-radius: 3px;
     }
+    li paper-material:hover{
+        background: #3a3a3a !important;
+    }
+    li paper-material:hover iron-image{
+      opacity:1.0 !important;
+    }
     li paper-material font{
       float: left;
   width: 100%;
@@ -92,6 +98,10 @@
     }
     .homeFeature iron-image{
       position: relative;
+    }
+    .homeInfoFeatures{
+      max-width: 750px;
+margin: auto;
     }
   </style>
   <template>

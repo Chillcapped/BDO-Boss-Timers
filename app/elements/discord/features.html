@@ -3,9 +3,90 @@
     :host {
       display: block;
     }
+    .featureListContainer{
+      float:left;
+      width:50%;
+      box-sizing: border-box;
+    }
+    .featureListContainer ul{
+      list-style: none;
+  padding-left: 0;
+  padding: 9px;
+  padding-top: 0px;
+    }
+    .featureListContainer ul li{
+      font-family: roboto;
+    }
+    .featureListContainer ul li font{
+      color: white;
+      font-weight: 700;
+    }
+    .featureListContainer ul li p{
+      color:#bfbfbf;
+    }
+    .featureListContainer h4{
+
+    }
+    .featureGFX iron-image{
+      height: 300px;
+width: 100%;
+margin: auto;
+margin-left: 26%;
+margin-top: 20%;
+    }
+    .featureGFX{
+      float:left;
+      width:50%;
+    }
+    .discordFeatures{
+      width: 100%;
+      max-width: 785px;
+      margin: auto;
+      border: 1px solid #383838;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 0;
+      border-radius: 3px;
+      background: #2d2d2d;
+      margin-bottom: 20px;
+      height: 590px;
+    }
   </style>
   <template>
-    <h4>Discord Features </h4>
+    <paper-material class="discordFeatures">
+      <div class="featureGFX">
+        <iron-image src="/static/images/discord-large.png" style="height:300px;width:100%;"><iron-image>
+      </div>
+      <div class="featureListContainer">
+        <ul>
+          <li>
+            <font>Security</font>
+            <p>BDO Timers only requests permissions that we need for fetching usernames and security roles</p>
+          </li>
+          <li>
+            <font>Channel Authorization</font>
+            <p>Users that can access your discord channel will be able to see your instance.</p>
+          </li>
+          <li>
+            <font>Sync Member Roles</font>
+            <p>Already have Moderators for your guild discord? Allow those users to update timers and
+              trigger push notifications for subscribed members. </p>
+            </li>
+          <li>
+            <font>Channel Bot</font>
+            <p>Dont want to use this website? Enable push notifications to post to your discord channel!</p>
+          </li>
+          <li>
+            <font>Real-Time Sync</font>
+            <p>Push Notifications to discord instances are instant</p>
+          </li>
+          <li>
+            <font>Backups / Archived Timers</font>
+            <p>Worried about a rogue discord member messing up your timers? Backups are available for all managed instances.</p>
+          </li>
+        </ul>
+      </div>
+    </paper-material>
   </template>
   <script>
     Polymer({
