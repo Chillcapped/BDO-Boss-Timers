@@ -5,7 +5,12 @@
     }
   </style>
   <template>
-    <h4>Account Launcher</h4>
+    <template is="dom-if" if="{{loggedIn}}">
+      <h4>User is logged in </h4>
+    </template>
+    <template is="dom-if" if="{{!loggedIn}}">
+      <account-signin user="{{user}}"></account-signin>
+    </template>
   </template>
   <script>
     Polymer({
@@ -15,6 +20,15 @@
           type: String,
           notify: true,
           route: "routeChanged"
+        },
+        loggedIn: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+        user: {
+          type: Object,
+          notify: true
         },
         params: {
           type: Object,

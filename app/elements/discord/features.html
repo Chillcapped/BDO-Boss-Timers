@@ -8,6 +8,9 @@
       width:50%;
       box-sizing: border-box;
     }
+    .clear{
+      clear:both;
+    }
     .featureListContainer ul{
       list-style: none;
   padding-left: 0;
@@ -28,34 +31,42 @@
 
     }
     .featureGFX iron-image{
-      height: 300px;
-width: 100%;
-margin: auto;
-margin-left: 26%;
-margin-top: 20%;
+      margin-top: 20%;
+      margin: auto;
     }
     .featureGFX{
-      float:left;
-      width:50%;
+      float: left;
+      width: 42%;
+      padding-top: 16%;
     }
     .discordFeatures{
       width: 100%;
       max-width: 785px;
       margin: auto;
-      border: 1px solid #383838;
-      padding: 10px;
+      padding: 0;
       box-sizing: border-box;
       margin-bottom: 0;
       border-radius: 3px;
       background: #2d2d2d;
       margin-bottom: 20px;
-      height: 590px;
+    }
+    h4{
+      background: #004a9d;
+      color: white;
+      padding: 10px;
+      margin-top: 0px;
+      font-family: roboto;
+      margin-bottom: 0px;
+      text-align: left;
+      font-size: 1.11em;
+      border-bottom: 1px solid #001832;
     }
   </style>
   <template>
     <paper-material class="discordFeatures">
+      <h4>Discord Integration:</h4>
       <div class="featureGFX">
-        <iron-image src="/static/images/discord-large.png" style="height:300px;width:100%;"><iron-image>
+        <iron-image src="/static/images/discord-large.png" style="height:210px;width:195px;"><iron-image>
       </div>
       <div class="featureListContainer">
         <ul>
@@ -86,6 +97,7 @@ margin-top: 20%;
           </li>
         </ul>
       </div>
+      <div class="clear"></div>
     </paper-material>
   </template>
   <script>

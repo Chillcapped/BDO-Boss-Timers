@@ -12,11 +12,23 @@
 <style>
 body{
   background: #202020;
+  margin: 0;
+}
+@media (min-width: 705px) {
+  #home.main{
+    background-image: url('/static/images/zarka2.jpg');
+    background-size: cover;
+    min-height: 80vh;
+  }
 }
 #home.main{
-  background-image: url('/static/images/zarka2.jpg');
-  background-size: cover;
-  min-height: 540px;
+  min-height: 80vh;
+}
+.main{
+  min-height: 500px;
+  -webkit-box-shadow: inset 2px 2px 17px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: inset 2px 2px 17px 0px rgba(0,0,0,0.75);
+  box-shadow: inset 2px 2px 17px 0px rgba(0,0,0,0.75);
 }
 </style>
   <template is="dom-bind" id="app">

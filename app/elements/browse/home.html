@@ -43,6 +43,17 @@
       --app-grid-columns: 4;
       --app-grid-item-height: 200px;
     }
+
+    @media (max-width: 640px) {
+      :host {
+        --app-grid-columns: 2;
+      }
+    }
+    @media (max-width: 315px) {
+      :host {
+        --app-grid-columns: 1;
+      }
+    }
     paper-tooltip{
       margin-top: -105px;
       height: 94px;
@@ -63,11 +74,6 @@
       padding: 10px;
     }
 
-    @media (max-width: 640px) {
-      :host {
-        --app-grid-columns: 1;
-      }
-    }
     li paper-material{
       background: #282829;
       border: 1px solid #272626;
@@ -103,10 +109,19 @@
       max-width: 750px;
 margin: auto;
     }
+    .homeInfo h4{
+      color: white;
+      margin-top:8px;
+      font-size: 1.4em;
+    }
+    *{
+      font-family: roboto;
+    }
   </style>
   <template>
     <section class="container">
       <section class="homeInfo">
+        <h4>Black Desert Online Boss Tracker</h4>
         <div class="homeInfoFeatures">
           <ul class="app-grid">
           <template is="dom-repeat" items="[[features]]">
@@ -134,10 +149,36 @@ margin: auto;
     Polymer({
       is: "home-page",
       properties: {
+        display: {
+          type: Object,
+          notify: true,
+          observer: "displayChanged"
+        },
+        displayClass: {
+          type: String,
+          notify: true
+        },
         timers: {
           type: Array,
           notify: true,
           value: []
+        },
+        tablet: {
+          type: Boolean,
+          observer: "tabletViewToggled"
+        },
+        smartphone: {
+          type: Boolean,
+          observer: "phoneViewToggled"
+        },
+        displayClass: {
+          type: String,
+          notify: true,
+          observer: "displayClassChanged"
+        },
+        full: {
+          type: Boolean,
+          observer: "fullViewToggled"
         },
         features: {
           type: Array,
@@ -145,13 +186,67 @@ margin: auto;
           value: [
             {'label': 'Controlled Access', 'icon': '/static/images/shield-outline.png'},
             {'label': 'Discord Auth', 'icon': '/static/images/discord.png'},
+            {'label': 'Twitch Auth', 'icon': '/static/images/twitch.png'},
             {'label': 'Estimated Spawn', 'icon': '/static/images/timer-sand.png'},
             {'label': 'Guild Access', 'icon': '/static/images/account-card-details.png'},
             {'label': 'Realtime Alerts', 'icon': '/static/images/cloud-sync.png'},
-            {'label': 'Loot Logging', 'icon': '/static/images/archive.png'},
-            {'label': 'Push Notifications', 'icon': '/static/images/cellphone-iphone.png'}
+            {'label': 'Loot Archives', 'icon': '/static/images/archive.png'},
+            {'label': 'Private Instances', 'icon': '/static/images/server-security.png'},
+            {'label': 'Push Notifications', 'icon': '/static/images/cellphone-iphone.png'},
+            {'label': 'Leaderboards', 'icon': '/static/images/account-star.png'},
+            {'label': 'Open Source', 'icon': '/static/images/code-braces.png'}
           ]
         }
+      },
+      displayChanged: function(e){
+        console.log(e);
+        var key = Object.keys(e);
+        key = key[0];
+        this.set('displayClass', 'app-grid '+key);
+      },
+      displayClassChanged: function(e){
+        console.log(e);
+      },
+      tabletViewToggled: function(e){
+        console.log('tablet', e);
+        if(e){
+          this.set('display', {tablet: true});
+        }
+        // if not true, and display exists and isnt smallest
+        if(!e && typeof(this.display) != 'undefined' && typeof(this.display.mini) === 'undefined'){
+          this.set('display', {phone: true});
+        }
+      },
+      fullViewToggled: function(e){
+          console.log('full', e);
+        if(e){
+          this.set('display', {full: true});
+        }
+        // if not true, and display exists and current layout is set to full
+        if(!e && typeof(this.display) != 'undefined' && typeof(this.display.full) != 'undefined'){
+          this.set('display', {tablet: true});
+        }
+      },
+      attached: function() {
+        this._updateGridStyles = this._updateGridStyles || function() {
+          this.updateStyles();
+        }.bind(this);
+        window.addEventListener('resize', this._updateGridStyles);
+      },
+      detached: function() {
+        window.removeEventListener('resize', this._updateGridStyles);
+      },
+      phoneViewToggled: function(e){
+        console.log('phone', e);
+        if(e){
+          this.set('display', {phone: true});
+        }
+        else{
+          this.set('display', {mini: true});
+        }
+      },
+      currentClass: function(e){
+        return e;
       }
     })
   </script>

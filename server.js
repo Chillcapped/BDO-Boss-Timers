@@ -1,6 +1,18 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var sessions = require('client-sessions');
+var favicon = require('serve-favicon');
+
+app.use(bodyParser.urlencoded({limit: '50mb'}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(cookieParser());
+app.use(favicon(__dirname + '/app/static/images/favicon.png'));
+
+// Load Routes
+require('./api/routes/')(app);
 
 /* Static Assets */
 app.use(express.static(path.join(__dirname, 'app')));

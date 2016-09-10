@@ -2,27 +2,50 @@
   <style>
     :host {
       display: block;
+    --my-custom-color: grey;
+     --paper-tab-ink: var(--my-custom-color);
+
+     /* custom CSS property */
+     --paper-tabs-selection-bar-color: #0064d3;
     }
     app-header{
       background: #202020;
       color: white;
       z-index:25;
-    }
-    #drawer{
-      z-index:50;
-    }
-    paper-icon-button{
-      display:none;
+      max-width: 1250px;
+      margin: auto;
     }
     paper-tabs{
       width: 80%;
-      max-width: 650px;
+      margin: auto;
     }
     h1 iron-image{
       padding: 5px;
       margin-right: 10px;
       margin-top: 10px;
     }
+    #drawer{
+      z-index:50;
+    }
+    @media (max-width: 900px) {
+      h1{
+        display:none;
+      }
+    }
+    @media (max-width: 310px) {
+    #signIn{
+      display: none;
+    }
+    }
+    @media (min-width: 900px) {
+      paper-icon-button{
+        display:none;
+      }
+      paper-tabs{
+        max-width: 650px;
+      }
+    }
+
   </style>
 
 
@@ -35,11 +58,9 @@
           <h1 main-title><iron-image src="/static/images/logo.png"></iron-image></h1>
 
           <paper-tabs selected="0" sticky>
-            <paper-tab on-tap="changePage" page="home">Home</paper-tab>
-            <paper-tab on-tap="changePage" page="tracker">Tracker</paper-tab>
-            <paper-tab on-tap="changePage" page="discord">Discord</paper-tab>
-            <paper-tab on-tap="changePage" page="twitch">Twitch</paper-tab>
-            <paper-tab on-tap="changePage" page="account">Sign In</paper-tab>
+            <paper-tab on-tap="changePage" page="home" id="features">Home</paper-tab>
+            <paper-tab on-tap="changePage" page="tracker" id="tracker">Tracker</paper-tab>
+            <paper-tab on-tap="changePage" page="account" id="signIn">Sign In</paper-tab>
           </paper-tabs>
 
         </app-toolbar>
